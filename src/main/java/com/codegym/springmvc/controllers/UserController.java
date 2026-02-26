@@ -3,10 +3,7 @@ package com.codegym.springmvc.controllers;
 import com.codegym.springmvc.entities.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,12 +49,16 @@ public class UserController {
     }
 
     @PostMapping("/store")
-    public String storeUser() {
+    // su dung @ModelAttribute de lay data tu form phuc tap
+    public String storeUser(@RequestParam("username") String username,
+                            @RequestParam("password") String password,
+                            @RequestParam("email") String email) {
         // Xu ly logic khi submit form
         // Lay data tu request
-
         // Them moi vao users
-
+        int newId = users.size() + 1;
+        User newUser = new User(newId, username, password, email);
+        users.add(newUser);
         // chuyen huong ve /users
         return "redirect:/users";
     }
