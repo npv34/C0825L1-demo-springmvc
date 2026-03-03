@@ -1,6 +1,7 @@
 package com.codegym.springmvc.controllers;
 
 import com.codegym.springmvc.entities.User;
+import com.codegym.springmvc.request.CreateUserRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,20 +45,19 @@ public class UserController {
     }
 
     @GetMapping("/create")
-    public String createUser() {
+    public String createUser(Model model) {
+        model.addAttribute("userRequest", new CreateUserRequest());
         return "users/create";
     }
 
     @PostMapping("/store")
     // su dung @ModelAttribute de lay data tu form phuc tap
-    public String storeUser(@RequestParam("username") String username,
-                            @RequestParam("password") String password,
-                            @RequestParam("email") String email) {
+    public String storeUser(@ModelAttribute("userRequest") CreateUserRequest createUserRequest) {
         // Xu ly logic khi submit form
         // Lay data tu request
         // Them moi vao users
         int newId = users.size() + 1;
-        User newUser = new User(newId, username, password, email);
+        User newUser = new User(newId, createUserRequest.getUsername(),  createUserRequest.getPassword(),createUserRequest.getEmail());
         users.add(newUser);
         // chuyen huong ve /users
         return "redirect:/users";
