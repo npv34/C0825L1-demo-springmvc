@@ -1,24 +1,38 @@
-package com.codegym.springmvc.entities;
+package com.codegym.springmvc.models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "users")
 public class User {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
     private String username;
+
+    @Column
     private String password;
+
+    @Column
     private String email;
 
-    public User(int id, String username, String password, String email) {
-        this.id = id;
+    public User() {
+    }
+
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
     }
 
-    public int getId() {
-        return id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Long getId() {
+        return id;
     }
 
     public String getUsername() {
