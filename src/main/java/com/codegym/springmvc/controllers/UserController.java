@@ -1,7 +1,8 @@
 package com.codegym.springmvc.controllers;
 
-import com.codegym.springmvc.entities.User;
+import com.codegym.springmvc.models.User;
 import com.codegym.springmvc.request.CreateUserRequest;
+import com.codegym.springmvc.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,16 +13,14 @@ import java.util.List;
 @Controller
 @RequestMapping("/users")
 public class UserController {
-
-    private List<User> users = new ArrayList<>();
-
-    public UserController() {
-        users.add(new User(1, "john_doe", "password123", "john@gmail.com"));
-        users.add(new User(2, "jane_doe", "password456", "jane@gmail.com"));
+    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("")
     public String listUsers(Model model) {
+        List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
         return "users/list";
     }
@@ -39,7 +38,7 @@ public class UserController {
     @GetMapping("/{id}/delete")
     public String deleteUser(@PathVariable("id") Long id) {
         // xoa nguoi dung theo id
-        users.removeIf(user -> user.getId() == id);
+        userService.deleteUserById(id);
         // chuyen huong /users
         return "redirect:/users";
     }
@@ -55,10 +54,12 @@ public class UserController {
     public String storeUser(@ModelAttribute("userRequest") CreateUserRequest createUserRequest) {
         // Xu ly logic khi submit form
         // Lay data tu request
-        // Them moi vao users
-        int newId = users.size() + 1;
-        User newUser = new User(newId, createUserRequest.getUsername(),  createUserRequest.getPassword(),createUserRequest.getEmail());
-        users.add(newUser);
+        String username = createUserRequest.getUsername();
+        String password = createUserRequest.getPassword();
+        String email = createUserRequest.getEmail();
+        User newUser = new User(username, password, email);
+        // Luu nguoi dung moi vao database
+        userService.createUser(newUser);
         // chuyen huong ve /users
         return "redirect:/users";
     }

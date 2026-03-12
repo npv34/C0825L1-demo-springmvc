@@ -3,6 +3,7 @@ package com.codegym.springmvc.models;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "books")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

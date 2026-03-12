@@ -16,6 +16,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Username</th>
                         <th scope="col">Email</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -23,6 +24,9 @@
                         <td th:text="${user.id}"></td>
                         <td th:text="${user.username}"></td>
                         <td th:text="${user.email}"></td>
+                        <td>
+                            <a th:href="@{/users/{id}/delete(id=${user.id})}" class="btn btn-danger">Delete</a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
