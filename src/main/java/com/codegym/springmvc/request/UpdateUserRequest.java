@@ -1,22 +1,16 @@
 package com.codegym.springmvc.request;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class CreateUserRequest {
+public class UpdateUserRequest {
     private int id;
     private String username;
-    private String password;
     private String email;
-    private Long roleId;
 
-    public CreateUserRequest() {
+    public UpdateUserRequest() {
     }
 
-    public CreateUserRequest(int id, String username, String password, String email) {
+    public UpdateUserRequest(int id, String username, String email) {
         this.id = id;
         this.username = username;
-        this.password = password;
         this.email = email;
     }
 
@@ -36,27 +30,11 @@ public class CreateUserRequest {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
     }
 }

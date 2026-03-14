@@ -16,6 +16,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Username</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Role</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -24,8 +25,10 @@
                         <td th:text="${user.id}"></td>
                         <td th:text="${user.username}"></td>
                         <td th:text="${user.email}"></td>
+                        <td th:text="${user.role != null ? user.role.name : 'Chua co role'}"></td>
                         <td>
                             <a th:href="@{/users/{id}/delete(id=${user.id})}" class="btn btn-danger">Delete</a>
+                            <a th:href="@{/users/{id}/edit(id=${user.id})}" class="btn btn-primary">Edit</a>
                         </td>
                     </tr>
                     </tbody>
