@@ -27,6 +27,12 @@
                         <label for="password" class="form-label">Password</label>
                         <input type="password" name="password" th:field="*{password}" class="form-control" id="password" placeholder="pass1">
                     </div>
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Roles</label>
+                        <select name="roleId" class="form-select" id="role">
+                            <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
