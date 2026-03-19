@@ -6,8 +6,10 @@ import com.codegym.springmvc.request.RoleRequest;
 import com.codegym.springmvc.request.UpdateUserRequest;
 import com.codegym.springmvc.services.UserService;
 import com.codegym.springmvc.services.RoleService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -57,10 +59,20 @@ public class UserController {
         return "users/create";
     }
 
-    @PostMapping("/store")
+    @PostMapping("/create")
     // su dung @ModelAttribute de lay data tu form phuc tap
-    public String storeUser(@ModelAttribute("userRequest") CreateUserRequest createUserRequest, @RequestParam("roleId") Long roleId) {
+    public String storeUser(@Valid @ModelAttribute("userRequest") CreateUserRequest createUserRequest,
+                            BindingResult bindingResult,
+                            @RequestParam("roleId") Long roleId,
+                            Model model) {
         // Xu ly logic khi submit form
+        if (bindingResult.hasErrors()){
+            System.out.println("Validation errors: " + bindingResult.getAllErrors());
+            List<RoleRequest> roles = roleService.getAllRoles();
+            model.addAttribute("roles", roles);
+            model.addAttribute("userRequest", createUserRequest);
+            return "users/create";
+        }
         // Luu nguoi dung moi vao database
         createUserRequest.setRoleId(roleId);
         userService.createUser(createUserRequest);
@@ -78,14 +90,26 @@ public class UserController {
         }
         // Dua thong tin nguoi dung vao model de hien thi tren form
         model.addAttribute("userEdit", userEdit);
+        List<RoleRequest> roles = roleService.getAllRoles();
+        model.addAttribute("roles", roles);
         // chuyen huong /users
         return "users/edit";
     }
 
-    @PostMapping("/{id}/update")
-    public String updateUser(@PathVariable("id") Long id,
-                             @ModelAttribute("userEdit") UpdateUserRequest userEdit) {
+    @PostMapping("/{id}/edit")
+    public String updateUser(@Valid
+                             @ModelAttribute("userEdit") UpdateUserRequest userEdit,
+                             BindingResult bindingResult,
+                             @PathVariable("id") Long id,
+                             Model model) {
         // Xu ly logic cap nhat thong tin nguoi dung
+        if (bindingResult.hasErrors()){
+            // Dua thong tin nguoi dung vao model de hien thi tren form
+            model.addAttribute("userEdit", userEdit);
+            List<RoleRequest> roles = roleService.getAllRoles();
+            model.addAttribute("roles", roles);
+            return "users/edit";
+        }
         // Luu thong tin nguoi dung da cap nhat vao database
         userService.updateUser(id, userEdit);
         // chuyen huong ve /users

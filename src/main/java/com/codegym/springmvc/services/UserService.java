@@ -47,7 +47,7 @@ public class UserService {
         User user =  userRepository.findById(id).orElse(null);
         return new UpdateUserRequest(user.getId().intValue(),
                                         user.getUsername(),
-                                        user.getEmail());
+                                        user.getEmail(), user.getRole() != null ? user.getRole().getId() : null);
     }
 
     public void updateUser(Long id,
@@ -56,6 +56,12 @@ public class UserService {
         if (user != null) {
             user.setUsername(updateUserRequest.getUsername());
             user.setEmail(updateUserRequest.getEmail());
+            // set role cho user
+            Long roleId = updateUserRequest.getRoleId();
+            Role role = roleRepository.findById(roleId).orElse(null);
+            if (role != null) {
+                user.setRole(role);
+            }
             userRepository.save(user);
         }
     }

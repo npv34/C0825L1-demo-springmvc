@@ -14,26 +14,35 @@
                 Create user
             </div>
             <div class="card-body">
-                <form th:action="@{/users/store}" method="post" th:object="${userRequest}">
+                <form th:action="@{/users/create}" method="post" th:object="${userRequest}">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
                         <input type="text" name="username" th:field="*{username}" class="form-control" id="username" placeholder="use1">
+                        <span th:if="${#fields.hasErrors('username')}" class="text-danger" th:errors="*{username}">
+                        </span>
                     </div>
                     <div class="mb-3">
-                        <label for="username" class="form-label">Email</label>
+                        <label for="email" class="form-label">Email</label>
                         <input type="email" name="email" th:field="*{email}" class="form-control" id="email" placeholder="email@gmail.com">
+                        <span th:if="${#fields.hasErrors('email')}" class="text-danger" th:errors="*{email}">
+                        </span>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" name="password" th:field="*{password}" class="form-control" id="password" placeholder="pass1">
+                        <span th:if="${#fields.hasErrors('password')}" class="text-danger" th:errors="*{password}">
+                        </span>
                     </div>
                     <div class="mb-3">
                         <label for="role" class="form-label">Roles</label>
                         <select name="roleId" class="form-select" id="role">
                             <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
                         </select>
+                        <span th:if="${#fields.hasErrors('roleId')}" class="text-danger" th:errors="*{roleId}">
+                        </span>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <a class="btn btn-info" href="/users">Cancel</a>
                 </form>
             </div>
         </div>
