@@ -13,14 +13,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/users")
 public class UserController {
-    private UserService userService;
-    private RoleService roleService;
+    private final UserService userService;
+    private final RoleService roleService;
     public UserController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
@@ -34,7 +33,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}/profile")
-    public String userProfile(@PathVariable("id") Long id,
+    public String userProfile(@PathVariable Long id,
                               Model model) {
         System.out.println("User ID: " + id);
 
@@ -44,7 +43,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}/delete")
-    public String deleteUser(@PathVariable("id") Long id) {
+    public String deleteUser(@PathVariable Long id) {
         // xoa nguoi dung theo id
         userService.deleteUserById(id);
         // chuyen huong /users
@@ -81,7 +80,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}/edit")
-    public String editUser(@PathVariable("id") Long id, Model model) {
+    public String editUser(@PathVariable Long id, Model model) {
         // Lay thong tin nguoi dung theo id
         UpdateUserRequest userEdit = userService.getUserById(id);
         if (userEdit == null) {
@@ -100,7 +99,7 @@ public class UserController {
     public String updateUser(@Valid
                              @ModelAttribute("userEdit") UpdateUserRequest userEdit,
                              BindingResult bindingResult,
-                             @PathVariable("id") Long id,
+                             @PathVariable Long id,
                              Model model) {
         // Xu ly logic cap nhat thong tin nguoi dung
         if (bindingResult.hasErrors()){

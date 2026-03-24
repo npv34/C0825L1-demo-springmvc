@@ -13,8 +13,8 @@ import java.util.List;
 @Service
 public class UserService {
 
-    private IUserRepository userRepository;
-    private IRoleRepository roleRepository;
+    private final IUserRepository userRepository;
+    private final IRoleRepository roleRepository;
 
     public UserService(IUserRepository userRepository, IRoleRepository roleRepository) {
         this.userRepository = userRepository;
