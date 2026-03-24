@@ -1,5 +1,6 @@
 package com.codegym.springmvc.services;
 
+import com.codegym.springmvc.exceptions.ResourceNotFoundException;
 import com.codegym.springmvc.models.Role;
 import com.codegym.springmvc.models.User;
 import com.codegym.springmvc.repositories.IRoleRepository;
@@ -26,7 +27,9 @@ public class UserService {
     }
 
     public void deleteUserById(Long id) {
-        userRepository.deleteById(id);
+        // kiem tra xem user co id ton tai hay k
+        User user =  userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("User not found with id: " + id));
+        userRepository.delete(user);
     }
 
     public void createUser(CreateUserRequest createUserRequest) {
@@ -44,7 +47,7 @@ public class UserService {
     }
 
     public UpdateUserRequest getUserById(Long id) {
-        User user =  userRepository.findById(id).orElse(null);
+        User user =  userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("User not found with id: " + id));
         return new UpdateUserRequest(user.getId().intValue(),
                                         user.getUsername(),
                                         user.getEmail(), user.getRole() != null ? user.getRole().getId() : null);

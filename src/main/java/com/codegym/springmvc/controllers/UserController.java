@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}/delete")
-    public String deleteUser(@PathVariable Long id) {
+    public String deleteUser(@PathVariable("id") Long id) {
         // xoa nguoi dung theo id
         userService.deleteUserById(id);
         // chuyen huong /users
@@ -80,26 +80,27 @@ public class UserController {
     }
 
     @GetMapping("/{id}/edit")
-    public String editUser(@PathVariable Long id, Model model) {
-        // Lay thong tin nguoi dung theo id
-        UpdateUserRequest userEdit = userService.getUserById(id);
-        if (userEdit == null) {
-            // Xu ly khi khong tim thay nguoi dung
-            return "error/404";
-        }
-        // Dua thong tin nguoi dung vao model de hien thi tren form
-        model.addAttribute("userEdit", userEdit);
-        List<RoleRequest> roles = roleService.getAllRoles();
-        model.addAttribute("roles", roles);
-        // chuyen huong /users
-        return "users/edit";
+    public String editUser(@PathVariable("id") Long id,
+                           Model model) {
+            // Lay thong tin nguoi dung theo id
+            UpdateUserRequest userEdit = userService.getUserById(id);
+            if (userEdit == null) {
+                // Xu ly khi khong tim thay nguoi dung
+                return "error/404";
+            }
+            // Dua thong tin nguoi dung vao model de hien thi tren form
+            model.addAttribute("userEdit", userEdit);
+            List<RoleRequest> roles = roleService.getAllRoles();
+            model.addAttribute("roles", roles);
+            // chuyen huong /users
+            return "users/edit";
     }
 
     @PostMapping("/{id}/edit")
     public String updateUser(@Valid
                              @ModelAttribute("userEdit") UpdateUserRequest userEdit,
                              BindingResult bindingResult,
-                             @PathVariable Long id,
+                             @PathVariable("id") Long id,
                              Model model) {
         // Xu ly logic cap nhat thong tin nguoi dung
         if (bindingResult.hasErrors()){

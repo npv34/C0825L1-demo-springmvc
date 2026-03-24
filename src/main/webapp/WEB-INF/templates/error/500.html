@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500 Internal Server Error</title>
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net" rel="stylesheet">
+    <style>
+        body, html { height: 100%; }
+        .error-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-color: #f8f9fa;
+        }
+        .error-code {
+            font-size: 8rem;
+            font-weight: 900;
+            color: #dc3545; /* Bootstrap Red */
+        }
+    </style>
+</head>
+<body>
+
+<div class="error-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1 class="error-code mb-0">500</h1>
+                <h2 class="display-4 fw-bold text-dark">Internal Server Error</h2>
+                <p class="lead text-muted mb-4">
+                    Oops! Something went wrong on our end. We're working on fixing it.
+                    Please try refreshing the page or come back later.
+                </p>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <button onclick="window.location.reload()" class="btn btn-primary btn-lg px-4 gap-3">Refresh Page</button>
+                    <a href="/" class="btn btn-outline-secondary btn-lg px-4">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
