@@ -3,15 +3,28 @@ package com.codegym.springmvc.request;
 public class LoginRequest {
     private String username;
     private String password;
+    private boolean rememberMe;
 
     public LoginRequest() {
 
     }
 
-    public LoginRequest(String username, String password) {
+    public LoginRequest(String username,
+                        String password,
+                        boolean rememberMe) {
         this.username = username;
         this.password = password;
+        this.rememberMe = rememberMe;
     }
+
+    public boolean isRememberMe() {
+        return rememberMe;
+    }
+
+    public void setRememberMe(boolean rememberMe) {
+        this.rememberMe = rememberMe;
+    }
+
 
     public String getUsername() {
         return username;
