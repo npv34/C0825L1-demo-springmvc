@@ -1,5 +1,7 @@
 package com.codegym.springmvc.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -20,6 +22,8 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "role_id")
+    // @JsonIgnore // chan viecj in nguoc lai Role khi lay User
+    @JsonManagedReference
     private Role role;
 
     public User() {

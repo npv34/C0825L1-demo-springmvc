@@ -1,5 +1,6 @@
 package com.codegym.springmvc.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class Role {
     private String name;
 
     @OneToMany(mappedBy = "role")
+    @JsonBackReference
     private List<User> users = new ArrayList<>();
 
     public void setId(Long id) {
