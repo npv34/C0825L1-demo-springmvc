@@ -10,6 +10,9 @@
 
     <mvc:annotation-driven/>
 
+    <!--- Cau hinh static file -->
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+
     <!-- Cấu hình Thymeleaf TemplateResolver -->
     <bean id="templateResolver" class="org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver">
         <property name="prefix" value="/WEB-INF/templates/"/>
