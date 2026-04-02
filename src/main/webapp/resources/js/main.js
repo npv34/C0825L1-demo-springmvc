@@ -20,3 +20,15 @@ $(".btn-delete-user").click(function (){
         }
     })
 })
+
+// code change language
+
+$("#langSelector").change(function () {
+    // lay gia tri tu select box
+    const lang = $(this).val();
+    // dieu huong trang kem theo param: ?lang=vi
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("lang", lang);
+    // tai lai trang
+    window.location.search = urlParams.toString();
+})

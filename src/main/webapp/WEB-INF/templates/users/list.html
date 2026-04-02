@@ -1,12 +1,14 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/main}">
+      layout:decorate="~{layout/main}"
+      lang="en"
+>
 <body>
 <section layout:fragment="content">
     <div class="container">
         <div class="card">
             <div class="card-header">
-                User Manager
+                <h4 th:text="#{userManager}"></h4>
                 <a href="/users/create" class="btn btn-success">Create</a>
             </div>
             <div class="card-body">
@@ -14,9 +16,9 @@
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Username</th>
+                        <th scope="col" th:text="#{Username}"></th>
                         <th scope="col">Email</th>
-                        <th scope="col">Role</th>
+                        <th scope="col" th:text="#{role}"></th>
                         <th></th>
                     </tr>
                     </thead>
@@ -27,7 +29,7 @@
                         <td th:text="${user.email}"></td>
                         <td th:text="${user.role != null ? user.role.name : 'Chua co role'}"></td>
                         <td>
-                            <button data-th-data="${user.id}" class="btn btn-danger btn-delete-user">Delete</button>
+                            <button data-th-data="${user.id}" class="btn btn-danger btn-delete-user" th:text="#{delete}"></button>
                             <a th:href="@{/users/{id}/edit(id=${user.id})}" class="btn btn-primary">Edit</a>
                         </td>
                     </tr>

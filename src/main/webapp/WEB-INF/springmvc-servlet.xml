@@ -77,6 +77,21 @@
                   ref="entityManagerFactory"/>
     </bean>
 
+    <!-- Cau hinh i18n -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+            <property name="basename" value="message"/>
+            <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+            <property name="defaultLocale" value="vi"/>
+    </bean>
+
+    <mvc:interceptors>
+            <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+                    <property name="paramName" value="lang"/>
+            </bean>
+    </mvc:interceptors>
+
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <jpa:repositories base-package="com.codegym.springmvc.repositories"/>

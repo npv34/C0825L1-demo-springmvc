@@ -37,7 +37,10 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-
+                        <select id="langSelector" class="form-select" aria-label="Default select example">
+                            <option th:selected="${#locale.language == 'en' }" value="en">English</option>
+                            <option th:selected="${#locale.language == 'vi' }" value="vi">Vietnamese</option>
+                        </select>
                     </li>
 
                 </ul>
