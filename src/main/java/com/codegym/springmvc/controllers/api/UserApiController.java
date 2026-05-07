@@ -20,8 +20,8 @@ public class UserApiController {
     @GetMapping({"", "/"})
     public ResponseEntity<?> getAll() {
         try {
-        List<User> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
+            List<User> users = userService.getAllUsers();
+            return ResponseEntity.ok(users);
         }catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -29,8 +29,12 @@ public class UserApiController {
 
     @PostMapping()
     public ResponseEntity<?> createUser(@RequestBody CreateUserRequest userRequest) {
-        userService.createUser(userRequest);
-        return ResponseEntity.ok("Create user successfully");
+        try {
+            userService.createUser(userRequest);
+            return ResponseEntity.ok("Create user successfully");
+        }catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
