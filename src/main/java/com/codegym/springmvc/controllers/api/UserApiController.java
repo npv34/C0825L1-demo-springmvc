@@ -20,8 +20,8 @@ public class UserApiController {
     @GetMapping({"", "/"})
     public ResponseEntity<?> getAll() {
         try {
-        List<User> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
+            List<User> users = userService.getAllUsers();
+            return ResponseEntity.ok(users);
         }catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
