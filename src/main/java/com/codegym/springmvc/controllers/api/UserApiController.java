@@ -2,6 +2,7 @@ package com.codegym.springmvc.controllers.api;
 
 import com.codegym.springmvc.models.User;
 import com.codegym.springmvc.request.CreateUserRequest;
+import com.codegym.springmvc.request.UpdateUserRequest;
 import com.codegym.springmvc.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -56,5 +57,9 @@ public class UserApiController {
         }catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    public ResponseEntity<?> findById(@PathVariable("id") Long id, @RequestBody UpdateUserRequest userRequest) {
+
     }
 }
