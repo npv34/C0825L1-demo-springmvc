@@ -40,6 +40,7 @@ public class UserApiController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     public ResponseEntity<?> findById(@PathVariable("id") Long id, @RequestBody UpdateUserRequest userRequest) {
 
     }
