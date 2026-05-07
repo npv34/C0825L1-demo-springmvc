@@ -43,4 +43,14 @@ public class UserApiController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable("id") Long id, @RequestBody CreateUserRequest userRequest) {
+        try {
+            userService.updateUserById(id, userRequest);
+            return ResponseEntity.ok("Update user successfully");
+        }catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
