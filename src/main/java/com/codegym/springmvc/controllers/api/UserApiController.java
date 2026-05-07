@@ -20,14 +20,22 @@ public class UserApiController {
 
     @GetMapping({"", "/"})
     public ResponseEntity<?> getAll() {
-        List<User> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
+        try {
+            List<User> users = userService.getAllUsers();
+            return ResponseEntity.ok(users);
+        }catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PostMapping()
     public ResponseEntity<?> createUser(@RequestBody CreateUserRequest userRequest) {
-        userService.createUser(userRequest);
-        return ResponseEntity.ok("Create user successfully");
+        try {
+            userService.createUser(userRequest);
+            return ResponseEntity.ok("Create user successfully");
+        }catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
@@ -36,6 +44,16 @@ public class UserApiController {
             // xoa nguoi dung theo id
             userService.deleteUserById(id);
             return ResponseEntity.ok("Delete user successfully");
+        }catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable("id") Long id, @RequestBody CreateUserRequest userRequest) {
+        try {
+            userService.updateUserById(id, userRequest);
+            return ResponseEntity.ok("Update user successfully");
         }catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
